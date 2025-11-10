@@ -9,17 +9,15 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logOut()
-      .then(() => {
-        toast.success("You logged out successfully!");
-      })
-      .catch((error) => {
-        toast.error(error.message || "Logout failed");
-      });
+      .then(() => toast.success("You logged out successfully!"))
+      .catch((error) => toast.error(error.message || "Logout failed"));
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm px-4 md:px-8">
+      {/* Left Section */}
       <div className="navbar-start">
+        {/* Mobile Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -41,35 +39,36 @@ const Navbar = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/Plants">Plants</NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile">My Profile</NavLink>
-            </li>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/explore">Explore ArtWorks</NavLink></li>
+            <li><NavLink to="/add">Add ArtWork</NavLink></li>
+            <li><NavLink to="/gallery">My Gallery</NavLink></li>
+            <li><NavLink to="/fav">My Favorite</NavLink></li>
           </ul>
         </div>
 
-        <NavLink to="/" className="btn btn-ghost text-xl flex items-center mx-20">
-          GreenNest
+        {/* Brand / Logo */}
+        <NavLink
+          to="/"
+          className="flex items-center gap-2 text-xl font-semibold btn btn-ghost normal-case"
+        >
           <img
-            src="https://img.freepik.com/free-vector/colorful-hand-bird-creative-logo-design_474888-4624.jpg?semt=ais_hybrid&w=740&q=80"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Xk7P7OfatYsDkfuWDVqveyYq_Xh3vZdbVw&s"
             alt="GreenNest Logo"
-            className="w-8 h-8 object-contain ml-2"
+            className="w-8 h-8 object-contain"
           />
+          <span className="hidden sm:inline-block">Artify</span>
         </NavLink>
       </div>
 
+      {/* Center Section (Desktop Links) */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-5">
+        <ul className="menu menu-horizontal px-1 gap-6">
           <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? "text-green-600 border-b-2 border-green-600" : ""
+                isActive ? "text-black-600 border-b-2 border-black-600" : ""
               }
             >
               Home
@@ -77,71 +76,81 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/Plants"
+              to="/explore"
               className={({ isActive }) =>
-                isActive ? "text-green-600 border-b-2 border-green-600" : ""
+                isActive ? "text-black-600 border-b-2 border-black-600" : ""
               }
             >
-              Plants
+              Explore ArtWorks
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/profile"
+              to="/add"
               className={({ isActive }) =>
-                isActive ? "text-green-600 border-b-2 border-green-600" : ""
+                isActive ? "text-black-600 border-b-2 border-black-600" : ""
               }
             >
-              My Profile
+              Add ArtWork
+            </NavLink>
+          </li>
+                    <li>
+            <NavLink
+              to="/gallery"
+              className={({ isActive }) =>
+                isActive ? "text-black-600 border-b-2 border-black-600" : ""
+              }
+            >
+              My Gallery
+            </NavLink>
+          </li>
+                    <li>
+            <NavLink
+              to="/fav"
+              className={({ isActive }) =>
+                isActive ? "text-black-600 border-b-2 border-black-600" : ""
+              }
+            >
+              My Favorites
             </NavLink>
           </li>
         </ul>
       </div>
 
-      <div className="dropdown dropdown-hover mx-4">
-        <div tabIndex={0} role="button" className="btn m-1">
-          {user ? "Logged In" : "Logged Out"}
+      {/* Right Section */}
+      <div className="navbar-end">
+        <div className="dropdown dropdown-hover">
+          <div tabIndex={0} role="button" className="btn btn-sm">
+            {user ? "Account" : "Sign In"}
+          </div>
+          <ul
+            tabIndex={-1}
+            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow"
+          >
+            {user ? (
+              <>
+                <li>
+                  <div className="flex items-center gap-2 px-2 py-1">
+                    <img
+                      src={user.photoURL || ""}
+                      alt={user.displayName || "User"}
+                      className="w-6 h-6 rounded-full"
+                    />
+                    <span>{user.displayName || "User"}</span>
+                  </div>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li><NavLink to="/auth/login">Login</NavLink></li>
+                <li><NavLink to="/auth/register">Register</NavLink></li>
+              </>
+            )}
+          </ul>
         </div>
-        <ul
-          tabIndex="-1"
-          className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-        >
-          {user ? (
-            <>
-              <li>
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    isActive ? "text-green-600 border-b-2 border-green-600" : ""
-                  }
-                >
-                  <img
-                    src={user.photoURL || ""}
-                    alt={user.displayName || "User"}
-                    className="w-6 h-6 rounded-full"
-                  />
-                </NavLink>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="text-left w-full"
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <NavLink to="/auth/login">Login</NavLink>
-              </li>
-              <li>
-                <NavLink to="/auth/register">Register</NavLink>
-              </li>
-            </>
-          )}
-        </ul>
       </div>
     </div>
   );
