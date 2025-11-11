@@ -3,11 +3,16 @@ import Root from "../pages/Root/Root";
 import Home from "../pages/Home/Home";
 
 import Auth from "../pages/Auth/Auth";
+import PrivateRoute from "../provider/PrivateRoute";
 
 import ErrorPage from "../pages/Error/Error";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ForgotPassword from "../pages/ForgetPassword/ForgetPassword";
+import Arts from "../pages/Arts/Arts";
+import AddArt from "../pages/AddArt/AddArt";
+import ModelDetails from "../pages/ModelDetails/ModelDetails";
+import MyModels from "../pages/MyModels/MyModels";
 
 const router = createBrowserRouter([
   {
@@ -18,8 +23,30 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-
-
+      {
+        path: "/explore",
+        element: <Arts></Arts>,
+        loader: () => fetch('http://localhost:3000/Artify')
+      },
+      {
+        path: "/add",
+        element: <AddArt></AddArt>,
+      },
+      {
+        path: "/ModelDetails/:id",
+        element: (<PrivateRoute>
+          <ModelDetails>
+          </ModelDetails>
+        </PrivateRoute>),
+        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+      }, {
+        path: "/MyModels",
+        element: (<PrivateRoute>
+          <MyModels>
+          </MyModels>
+        </PrivateRoute>),
+        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+      },
       {
         path: "/auth",
         element: <Auth></Auth>,
@@ -32,20 +59,10 @@ const router = createBrowserRouter([
             path: "/auth/Register",
             element: <Register></Register>,
           },
-            { path: "forgot-password", element: <ForgotPassword /> }
+          { path: "forgot-password", element: <ForgotPassword /> }
         ]
-        
+
       },
-      
-      {
-        path: "auth",
-        element: <h2>Auth</h2>,
-      },
-      {
-        path: "news",
-        element: <h2>News</h2>,
-      },
-      
     ],
   },
   {

@@ -42,7 +42,7 @@ const Navbar = () => {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/explore">Explore ArtWorks</NavLink></li>
             <li><NavLink to="/add">Add ArtWork</NavLink></li>
-            <li><NavLink to="/gallery">My Gallery</NavLink></li>
+            <li><NavLink to="/MyModels">My Gallery</NavLink></li>
             <li><NavLink to="/fav">My Favorite</NavLink></li>
           </ul>
         </div>
@@ -96,7 +96,7 @@ const Navbar = () => {
           </li>
                     <li>
             <NavLink
-              to="/gallery"
+              to="/MyModels"
               className={({ isActive }) =>
                 isActive ? "text-black-600 border-b-2 border-black-600" : ""
               }
@@ -117,41 +117,50 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Right Section */}
-      <div className="navbar-end">
-        <div className="dropdown dropdown-hover">
-          <div tabIndex={0} role="button" className="btn btn-sm">
-            {user ? "Account" : "Sign In"}
-          </div>
-          <ul
-            tabIndex={-1}
-            className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow"
-          >
-            {user ? (
-              <>
-                <li>
-                  <div className="flex items-center gap-2 px-2 py-1">
-                    <img
-                      src={user.photoURL || ""}
-                      alt={user.displayName || "User"}
-                      className="w-6 h-6 rounded-full"
-                    />
-                    <span>{user.displayName || "User"}</span>
-                  </div>
-                </li>
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li><NavLink to="/auth/login">Login</NavLink></li>
-                <li><NavLink to="/auth/register">Register</NavLink></li>
-              </>
-            )}
-          </ul>
+{/* Right Section */}
+<div className="navbar-end">
+  {user ? (
+    <div className="dropdown dropdown-hover dropdown-left">
+      {/* Avatar button */}
+      <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img
+            src={user.photoURL || "https://via.placeholder.com/40"}
+            alt={user.displayName || "User"}
+          />
         </div>
       </div>
+      {/* Dropdown content */}
+      <ul
+        tabIndex={-1}
+        className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
+      >
+        <li className="px-2 py-1">
+          <span className="font-medium">{user.displayName || "User"}</span>
+        </li>
+        <li>
+          <button onClick={handleLogout} className="w-full text-left">
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  ) : (
+    <div className="dropdown dropdown-hover dropdown-left">
+      <div tabIndex={0} role="button" className="btn btn-sm">
+        Sign In
+      </div>
+      <ul
+        tabIndex={-1}
+        className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
+      >
+        <li><NavLink to="/auth/login">Login</NavLink></li>
+        <li><NavLink to="/auth/register">Register</NavLink></li>
+      </ul>
+    </div>
+  )}
+</div>
+
     </div>
   );
 };
