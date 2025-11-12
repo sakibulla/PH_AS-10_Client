@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
         
         <div>
-          <h6 className="font-bold mb-2">Quick Links</h6>
+          <h6 className="font-bold mb-2">Artify</h6>
           <ul className="space-y-1">
             <li><a href="/" className="hover:underline">About</a></li>
             <li><a href="/" className="hover:underline">Contact</a></li>

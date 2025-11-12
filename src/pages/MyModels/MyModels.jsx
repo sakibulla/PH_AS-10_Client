@@ -21,31 +21,34 @@ const MyModels = () => {
       })
       .catch((err) => {
         console.error("Error fetching models:", err);
+        toast.error("Failed to load your artworks!");
         setLoading(false);
       });
   }, [user]);
 
   // Handle Delete
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this artwork?");
     if (!confirmDelete) return;
 
-    fetch(`http://localhost:3000/Artify/${id}`, { method: "DELETE" })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          toast.success("Artwork deleted successfully!");
-          setModels(models.filter((m) => m._id !== id));
-        }
-      })
-      .catch((err) => {
-        console.error("Delete error:", err);
+    try {
+      const res = await fetch(`http://localhost:3000/Artify/${id}`, { method: "DELETE" });
+      const data = await res.json();
+
+      if (data.deletedCount > 0) {
+        toast.success("Artwork deleted successfully!");
+        setModels(models.filter((m) => m._id !== id));
+      } else {
         toast.error("Failed to delete artwork!");
-      });
+      }
+    } catch (err) {
+      console.error("Delete error:", err);
+      toast.error("Failed to delete artwork!");
+    }
   };
 
   // Handle Update
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
 
@@ -58,28 +61,25 @@ const MyModels = () => {
       description: form.description.value,
     };
 
-    fetch(`http://localhost:3000/Artify/${editingModel._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedModel),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          toast.success("Artwork updated successfully!");
-          // update UI without reloading
-          setModels(
-            models.map((m) =>
-              m._id === editingModel._id ? { ...m, ...updatedModel } : m
-            )
-          );
-          setEditingModel(null); // close modal
-        }
-      })
-      .catch((err) => {
-        console.error("Update error:", err);
-        toast.error("Failed to update artwork!");
+    try {
+      const res = await fetch(`http://localhost:3000/Artify/${editingModel._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedModel),
       });
+
+      const data = await res.json();
+      if (data.modifiedCount > 0) {
+        toast.success("Artwork updated successfully!");
+        setModels(models.map((m) => (m._id === editingModel._id ? { ...m, ...updatedModel } : m)));
+        setEditingModel(null);
+      } else {
+        toast.error("No changes were made!");
+      }
+    } catch (err) {
+      console.error("Update error:", err);
+      toast.error("Failed to update artwork!");
+    }
   };
 
   if (loading) return <p className="text-center mt-10">Loading your artworks...</p>;

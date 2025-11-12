@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import Root from "../pages/Root/Root";
 import Home from "../pages/Home/Home";
-
 import Auth from "../pages/Auth/Auth";
 import PrivateRoute from "../provider/PrivateRoute";
-
 import ErrorPage from "../pages/Error/Error";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
@@ -13,6 +11,7 @@ import Arts from "../pages/Arts/Arts";
 import AddArt from "../pages/AddArt/AddArt";
 import ModelDetails from "../pages/ModelDetails/ModelDetails";
 import MyModels from "../pages/MyModels/MyModels";
+import Myfavorites from "../pages/Myfavorites/Myfavorites";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +21,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        loader: () => fetch('http://localhost:3000/Artify')
       },
       {
         path: "/explore",
@@ -30,7 +30,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/add",
-        element: <AddArt></AddArt>,
+        element:(<PrivateRoute>
+          <AddArt></AddArt>
+        </PrivateRoute>) ,
       },
       {
         path: "/ModelDetails/:id",
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
         element: (<PrivateRoute>
           <MyModels>
           </MyModels>
+        </PrivateRoute>),
+        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+      },
+      {
+        path: "/fav",
+        element: (<PrivateRoute>
+          <Myfavorites>
+          </Myfavorites>
         </PrivateRoute>),
         loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
       },

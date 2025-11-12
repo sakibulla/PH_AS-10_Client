@@ -22,6 +22,8 @@ const AddArt = () => {
       visibility: form.visibility.value,
       userName: form.userName.value,
       userEmail: form.userEmail.value,
+      likes: 3,            // ✅ default likes
+      favorites: [],       // ✅ default favorites
     };
 
     fetch("http://localhost:3000/Artify", {
@@ -42,7 +44,7 @@ const AddArt = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
+    <div className="max-w-2xl mx-auto p-6 shadow-lg rounded-xl mt-10">
       <h2 className="text-2xl font-semibold text-center mb-6">Add New Artwork</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -132,7 +134,7 @@ const AddArt = () => {
           <label className="block font-medium">Visibility</label>
           <select
             name="visibility"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+            className="w-full border  rounded-lg px-3 py-2"
             required
           >
             <option value="Public">Public</option>
@@ -148,7 +150,7 @@ const AddArt = () => {
             name="userName"
             value={user?.displayName || "Guest User"}
             readOnly
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 bg-gray-100 text-gray-600"
+            className="w-full border rounded-lg px-3 py-2  text-gray-600"
           />
         </div>
 
@@ -159,7 +161,7 @@ const AddArt = () => {
             name="userEmail"
             value={user?.email || "guest@example.com"}
             readOnly
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 bg-gray-100 text-gray-600"
+            className="w-full border rounded-lg px-3 py-2  text-gray-600"
           />
         </div>
 
@@ -167,7 +169,7 @@ const AddArt = () => {
         <button
           type="submit"
           className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
-        >
+        > 
           Add Artwork
         </button>
       </form>

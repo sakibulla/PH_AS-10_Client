@@ -3,135 +3,211 @@ import { Link } from "react-router";
 import styled from "styled-components";
 
 const Model = ({ art }) => {
-  const { imageUrl, title, artist, category, likes, _id } = art;
+  const { imageUrl, title, userName, category, likes, _id } = art;
 
   return (
-    <StyledCard>
+    <StyledWrapper>
       <div className="card">
-        <div className="card__image">
-          <img src={imageUrl} alt={title} />
-        </div>
-        <div className="card__content">
-          <h3 className="card__title">{title}</h3>
-          <p className="card__artist">By {artist}</p>
-          <p className="card__category">{category}</p>
-          <p className="card__likes">❤️ {likes || 0} Likes</p>
-           <Link to={`/ModelDetails/${_id}`}><button className="card__button">View Details</button></Link>
+        <div className="content">
+          {/* BACK SIDE */}
+          <div className="back">
+            <div className="back-content">
+              <strong>{category || "Art"}</strong>
+              <Link to={`/ModelDetails/${_id}`}>
+                <button className="view-btn">View Details</button>
+              </Link>
+            </div>
+          </div>
+
+          {/* FRONT SIDE */}
+          <div className="front">
+            <div className="img">
+              <img src={imageUrl} alt={title} />
+            </div>
+            <div className="front-content">
+              <div className="description">
+                <div className="title">
+                  <p>
+                    <strong>{title}</strong>
+                  </p>
+                  <svg
+                    fill="#20c997"
+                    height="15px"
+                    width="15px"
+                    viewBox="0,0,256,256"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g transform="scale(8,8)">
+                      <path d="M25,27l-9,-6.75l-9,6.75v-23h18z" />
+                    </g>
+                  </svg>
+                </div>
+                <p className="card-footer">
+                  <span>👩‍🎨 {userName || "Unknown"}</span> <br />
+                  ❤️ {likes || 0} Likes
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </StyledCard>
+    </StyledWrapper>
   );
 };
 
-const StyledCard = styled.div`
-  width: 100%;
-  max-width: 300px;
-  margin: auto;
-
+const StyledWrapper = styled.div`
   .card {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    overflow: visible;
+    width: 260px;
+    height: 320px;
+    margin: auto;
   }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-  }
-
-  .card__image img {
+  .content {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 400ms;
+    box-shadow: 0px 0px 10px 2px #00000066;
+    border-radius: 10px;
   }
 
-  .card:hover .card__image img {
-    transform: scale(1.05);
+  .card:hover .content {
+    transform: rotateY(180deg);
   }
 
-  .card__content {
-    padding: 16px;
+  .front,
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .front {
+    transform: rotateY(0deg);
+    background-color: #111;
+    color: #fff;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+    background-color: #151515;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .back::before {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 160%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #6366f1,
+      #8b5cf6,
+      #ec4899,
+      transparent
+    );
+    animation: rotate 4s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+
+  .back-content {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background-color: #151515;
+    border-radius: 10px;
+    color: white;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 2;
   }
 
-  .card__title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-  }
-
-  .card__artist {
-    font-size: 14px;
-    color: #555;
-    margin: 0;
-  }
-
-  .card__category {
-    font-size: 12px;
-    color: #999;
-    margin: 0;
-  }
-
-  .card__likes {
-    font-size: 14px;
-    color: #ff4b5c;
-    margin: 0;
-  }
-
-  .card__button {
-    margin-top: 12px;
-    padding: 8px 16px;
-    background-color: #4f46e5;
-    color: #fff;
+  .view-btn {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 8px 14px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
   }
 
-  .card__button:hover {
-    background-color: #3730a3;
+  .view-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 1024px) {
-    .card__image img {
-      height: 180px;
-    }
+  .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
   }
 
-  @media (max-width: 768px) {
-    max-width: 45%;
-    margin: 1rem auto;
-    .card__image img {
-      height: 160px;
-    }
+  .front-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  .badge {
+    background-color: #00000055;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    width: fit-content;
+    backdrop-filter: blur(3px);
+  }
+
+  .description {
+    margin-top: 8px;
+  }
+
+  .title {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+  }
+
+  .card-footer {
+    font-size: 12px;
+    color: #ddd;
+    margin-top: 6px;
   }
 
   @media (max-width: 480px) {
-    max-width: 100%;
-    .card__image img {
-      height: 140px;
-    }
-    .card__title {
-      font-size: 18px;
-    }
-    .card__artist,
-    .card__category,
-    .card__likes {
-      font-size: 12px;
-    }
-    .card__button {
-      padding: 6px 12px;
-      font-size: 14px;
+    .card {
+      width: 90%;
+      height: 280px;
     }
   }
 `;

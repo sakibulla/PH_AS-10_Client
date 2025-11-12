@@ -13,6 +13,17 @@ const Navbar = () => {
       .catch((error) => toast.error(error.message || "Logout failed"));
   };
 
+  const handleTheme = (checked) => {
+    const html = document.querySelector("html");
+    if (checked) {
+      html.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm px-4 md:px-8">
       {/* Left Section */}
@@ -39,11 +50,21 @@ const Navbar = () => {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/explore">Explore ArtWorks</NavLink></li>
-            <li><NavLink to="/add">Add ArtWork</NavLink></li>
-            <li><NavLink to="/MyModels">My Gallery</NavLink></li>
-            <li><NavLink to="/fav">My Favorite</NavLink></li>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/explore">Explore ArtWorks</NavLink>
+            </li>
+            <li>
+              <NavLink to="/add">Add ArtWork</NavLink>
+            </li>
+            <li>
+              <NavLink to="/MyModels">My Gallery</NavLink>
+            </li>
+            <li>
+              <NavLink to="/fav">My Favorite</NavLink>
+            </li>
           </ul>
         </div>
 
@@ -54,7 +75,7 @@ const Navbar = () => {
         >
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Xk7P7OfatYsDkfuWDVqveyYq_Xh3vZdbVw&s"
-            alt="GreenNest Logo"
+            alt="Artify Logo"
             className="w-8 h-8 object-contain"
           />
           <span className="hidden sm:inline-block">Artify</span>
@@ -94,7 +115,7 @@ const Navbar = () => {
               Add ArtWork
             </NavLink>
           </li>
-                    <li>
+          <li>
             <NavLink
               to="/MyModels"
               className={({ isActive }) =>
@@ -104,7 +125,7 @@ const Navbar = () => {
               My Gallery
             </NavLink>
           </li>
-                    <li>
+          <li>
             <NavLink
               to="/fav"
               className={({ isActive }) =>
@@ -117,50 +138,59 @@ const Navbar = () => {
         </ul>
       </div>
 
-{/* Right Section */}
-<div className="navbar-end">
-  {user ? (
-    <div className="dropdown dropdown-hover dropdown-left">
-      {/* Avatar button */}
-      <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img
-            src={user.photoURL || "https://via.placeholder.com/40"}
-            alt={user.displayName || "User"}
-          />
-        </div>
-      </div>
-      {/* Dropdown content */}
-      <ul
-        tabIndex={-1}
-        className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
-      >
-        <li className="px-2 py-1">
-          <span className="font-medium">{user.displayName || "User"}</span>
-        </li>
-        <li>
-          <button onClick={handleLogout} className="w-full text-left">
-            Logout
-          </button>
-        </li>
-      </ul>
-    </div>
-  ) : (
-    <div className="dropdown dropdown-hover dropdown-left">
-      <div tabIndex={0} role="button" className="btn btn-sm">
-        Sign In
-      </div>
-      <ul
-        tabIndex={-1}
-        className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
-      >
-        <li><NavLink to="/auth/login">Login</NavLink></li>
-        <li><NavLink to="/auth/register">Register</NavLink></li>
-      </ul>
-    </div>
-  )}
-</div>
+      {/* Right Section */}
+      <div className="navbar-end flex items-center gap-3">
+        {/* Dark Mode Toggle */}
+        <input
+          onChange={(e) => handleTheme(e.target.checked)}
+          type="checkbox"
+          defaultChecked={localStorage.getItem("theme") === "dark"}
+          className="toggle"
+        />
 
+        {user ? (
+          <div className="dropdown dropdown-hover dropdown-left">
+            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src={user.photoURL || "https://via.placeholder.com/40"}
+                  alt={user.displayName || "User"}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={-1}
+              className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
+            >
+              <li className="px-2 py-1">
+                <span className="font-medium">{user.displayName || "User"}</span>
+              </li>
+              <li>
+                <button onClick={handleLogout} className="w-full text-left">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div className="dropdown dropdown-hover dropdown-left">
+            <div tabIndex={0} role="button" className="btn btn-sm">
+              Sign In
+            </div>
+            <ul
+              tabIndex={-1}
+              className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow mt-2"
+            >
+              <li>
+                <NavLink to="/auth/login">Login</NavLink>
+              </li>
+              <li>
+                <NavLink to="/auth/register">Register</NavLink>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
