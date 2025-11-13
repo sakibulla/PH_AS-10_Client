@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router";
 import Model from "../Model/Model";
 import { CiSearch } from "react-icons/ci";
 import { Typewriter } from "react-simple-typewriter";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -15,12 +14,22 @@ const Arts = () => {
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [filtered, setFiltered] = useState(data);
-  const [loading, setLoading] = useState(false);
+  const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   const categories = ["All", ...Array.from(new Set(data.map((art) => art.category)))];
 
+
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setFiltered(data);
+      setLoading(false);
+    }, 800); 
+    return () => clearTimeout(timer);
+  }, [data]);
+
+  useEffect(() => {
+    if (!data.length) return;
     setLoading(true);
     const delay = setTimeout(() => {
       let filteredData = data;
@@ -45,7 +54,16 @@ const Arts = () => {
   const featuredArts = data.slice(0, 5);
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-8  min-h-screen">
+    <div className="px-4 md:px-8 lg:px-16 py-8 min-h-screen relative">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center  z-50">
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 border-opacity-70 mb-3"></div>
+            <p className="text-gray-600 font-semibold text-lg">Loading...</p>
+          </div>
+        </div>
+      )}
+
       <div className="text-center md:text-left mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
           <Typewriter
@@ -61,7 +79,7 @@ const Arts = () => {
         <p className="text-gray-600 mt-1 text-lg">Discover amazing artworks</p>
       </div>
 
-      {featuredArts.length > 0 && (
+      {!loading && featuredArts.length > 0 && (
         <div className="max-w-sm mx-auto mb-10">
           <Swiper
             effect="cards"
@@ -81,35 +99,32 @@ const Arts = () => {
         </div>
       )}
 
-<div className="flex flex-col md:flex-row justify-end gap-4 mb-8 w-full md:w-1/2 ml-auto">
-  <div className="flex items-center border border-gray-300 px-4 py-2 rounded-lg shadow-sm flex-1 focus-within:ring-2 focus-within:ring-indigo-400">
-    <CiSearch className="text-gray-400 text-xl mr-2" />
-    <input
-      type="text"
-      placeholder="Search by Title"
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      className="outline-none flex-1"
-    />
-  </div>
+      <div className="flex flex-col md:flex-row justify-end gap-4 mb-8 w-full md:w-1/2 ml-auto">
+        <div className="flex items-center border border-gray-300 px-4 py-2 rounded-lg shadow-sm flex-1 focus-within:ring-2 focus-within:ring-indigo-400">
+          <CiSearch className="text-gray-400 text-xl mr-2" />
+          <input
+            type="text"
+            placeholder="Search by Title"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="outline-none flex-1"
+          />
+        </div>
 
-  <select
-    value={category}
-    onChange={(e) => setCategory(e.target.value)}
-    className="border border-gray-300 rounded-lg px-4 py-2 shadow-sm"
-  >
-    {categories.map((cat) => (
-      <option key={cat} value={cat}>
-        {cat}
-      </option>
-    ))}
-  </select>
-</div>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="border border-gray-300 rounded-lg px-4 py-2 shadow-sm"
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
 
-
-      {loading ? (
-        <div className="text-center py-10 text-gray-500 font-semibold">Searching...</div>
-      ) : (
+      {!loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filtered.length > 0 ? (
             filtered.map((art) => <Model key={art._id} art={art} />)
