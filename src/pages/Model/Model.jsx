@@ -9,7 +9,6 @@ const Model = ({ art }) => {
     <StyledWrapper>
       <div className="card">
         <div className="content">
-          {/* BACK SIDE */}
           <div className="back">
             <div className="back-content">
               <strong>{category || "Art"}</strong>
@@ -19,7 +18,6 @@ const Model = ({ art }) => {
             </div>
           </div>
 
-          {/* FRONT SIDE */}
           <div className="front">
             <div className="img">
               <img src={imageUrl} alt={title} />

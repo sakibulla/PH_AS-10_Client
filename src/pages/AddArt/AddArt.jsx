@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const AddArt = () => {
-  const { user } = useContext(AuthContext); // ✅ correct usage
+  const { user } = useContext(AuthContext); 
   console.log(user);
 
   const handleSubmit = (e) => {
@@ -22,11 +22,11 @@ const AddArt = () => {
       visibility: form.visibility.value,
       userName: form.userName.value,
       userEmail: form.userEmail.value,
-      likes: 3,            // ✅ default likes
-      favorites: [],       // ✅ default favorites
+      likes: 3,           
+      favorites: [],       
     };
 
-    fetch("http://localhost:3000/Artify", {
+    fetch("https://artify-six-nu.vercel.app/Artify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -48,7 +48,6 @@ const AddArt = () => {
       <h2 className="text-2xl font-semibold text-center mb-6">Add New Artwork</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
 
-        {/* Image URL */}
         <div>
           <label className="block font-medium">Image URL</label>
           <input
@@ -60,7 +59,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Title */}
         <div>
           <label className="block font-medium">Title</label>
           <input
@@ -72,7 +70,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Category */}
         <div>
           <label className="block font-medium">Category</label>
           <input
@@ -84,7 +81,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Medium / Tools */}
         <div>
           <label className="block font-medium">Medium / Tools</label>
           <input
@@ -96,7 +92,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Description */}
         <div>
           <label className="block font-medium">Description</label>
           <textarea
@@ -107,7 +102,6 @@ const AddArt = () => {
           ></textarea>
         </div>
 
-        {/* Dimensions (optional) */}
         <div>
           <label className="block font-medium">Dimensions (optional)</label>
           <input
@@ -118,7 +112,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Price (optional) */}
         <div>
           <label className="block font-medium">Price (optional)</label>
           <input
@@ -129,7 +122,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Visibility */}
         <div>
           <label className="block font-medium">Visibility</label>
           <select
@@ -142,7 +134,6 @@ const AddArt = () => {
           </select>
         </div>
 
-        {/* User Info (read-only) */}
         <div>
           <label className="block font-medium">User Name (read-only)</label>
           <input
@@ -165,7 +156,6 @@ const AddArt = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"

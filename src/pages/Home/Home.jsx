@@ -10,9 +10,8 @@ const Home = () => {
   const [topArtists, setTopArtists] = useState([]);
   const [communityHighlights, setCommunityHighlights] = useState([]);
 
-  // Fetch 6 most recent artworks
   useEffect(() => {
-    axios.get('http://localhost:3000/home-arts')
+    axios.get('https://artify-six-nu.vercel.app/home-arts')
       .then(res => {
         const sorted = res.data.sort((a, b) => b._id.localeCompare(a._id));
         setArts(sorted);
@@ -22,7 +21,6 @@ const Home = () => {
       .catch(err => console.error(err));
   }, []);
 
-  // Filter based on search
   useEffect(() => {
     const delay = setTimeout(() => {
       const filteredData = arts.filter((art) =>
@@ -34,7 +32,6 @@ const Home = () => {
     return () => clearTimeout(delay);
   }, [search, arts]);
 
-  // Function to pick random artworks for extra sections
   const pickRandomSections = (data) => {
     const shuffled = [...data].sort(() => 0.5 - Math.random());
     setTopArtists(shuffled.slice(0, 2));
@@ -48,7 +45,6 @@ const Home = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-        {/* Featured Arts */}
         <h1 className="text-3xl md:text-4xl font-bold  text-center mb-16">
           Featured Arts
         </h1>
@@ -59,7 +55,6 @@ const Home = () => {
           ))}
         </div>
 
-{/* Top Artists of the Week */}
 <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
   Top Artists of the Week
 </h2>
@@ -69,7 +64,6 @@ const Home = () => {
   ))}
 </div>
 
-{/* Community Highlights */}
 <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">
   Community Highlights
 </h2>

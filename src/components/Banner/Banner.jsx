@@ -32,7 +32,6 @@ const Banner = () => {
     additionalClass="custom-gallery"
   />
 
-  {/* Overlay - smaller width, centered */}
   <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center pointer-events-none z-10 px-4">
     <h1 className="text-3xl md:text-5xl font-bold mb-4">
       <Typewriter

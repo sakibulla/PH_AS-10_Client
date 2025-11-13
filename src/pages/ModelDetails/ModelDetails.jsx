@@ -14,24 +14,22 @@ const ModelDetails = () => {
     const [liked, setLiked] = useState(false);
     const [favorited, setFavorited] = useState(false);
 
-    // --- Like Handler ---
     const handleLike = async () => {
         if (liked) return;
         setLiked(true);
         setLikes(likes + 1);
         try {
-            await fetch(`http://localhost:3000/Artify/${model._id}/like`, { method: "PATCH" });
+            await fetch(`https://artify-six-nu.vercel.app/Artify/${model._id}/like`, { method: "PATCH" });
         } catch (err) {
             console.error(err);
         }
     };
 
-    // --- Favorite Handler ---
     const handleFavorite = async () => {
         if (favorited) return;
         setFavorited(true);
         try {
-            const response = await fetch(`http://localhost:3000/favorites`, {
+            const response = await fetch(`https://artify-six-nu.vercel.app/favorites`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...model, email: user?.email || "anonymous" }),

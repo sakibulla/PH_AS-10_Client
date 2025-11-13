@@ -80,7 +80,7 @@ const Register = () => {
                         <div className="relative">
                             <input
                                 name="password"
-                                type={showPassword ? "text" : "password"} // ✅ toggle
+                                type={showPassword ? "text" : "password"} 
                                 className="input input-bordered w-full"
                                 required
                             />

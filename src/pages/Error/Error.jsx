@@ -4,11 +4,9 @@ const ErrorPage = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-800 text-white px-4 overflow-hidden">
       
-      {/* Abstract floating circles */}
       <div className="absolute top-[-50px] left-[-50px] w-72 h-72 bg-white/5 rounded-full animate-pulse"></div>
       <div className="absolute bottom-[-80px] right-[-60px] w-96 h-96 bg-white/5 rounded-full animate-pulse"></div>
       
-      {/* Main content */}
       <h1 className="text-[8rem] font-extrabold leading-none tracking-tight z-10">404</h1>
       <p className="text-xl md:text-2xl font-light mb-6 text-gray-300 z-10">
         Oops! The page you’re looking for doesn’t exist.

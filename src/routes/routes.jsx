@@ -21,12 +21,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () => fetch('http://localhost:3000/Artify')
+        loader: () => fetch('https://artify-six-nu.vercel.app/Artify')
       },
       {
         path: "/explore",
         element: <Arts></Arts>,
-        loader: () => fetch('http://localhost:3000/Artify')
+        loader: () => fetch('https://artify-six-nu.vercel.app/Artify')
       },
       {
         path: "/add",
@@ -40,14 +40,14 @@ const router = createBrowserRouter([
           <ModelDetails>
           </ModelDetails>
         </PrivateRoute>),
-        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+        loader: ({ params }) => fetch(`https://artify-six-nu.vercel.app/Artify/${params.id}`)
       }, {
         path: "/MyModels",
         element: (<PrivateRoute>
           <MyModels>
           </MyModels>
         </PrivateRoute>),
-        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+        loader: ({ params }) => fetch(`https://artify-six-nu.vercel.app/Artify/${params.id}`)
       },
       {
         path: "/fav",
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
           <Myfavorites>
           </Myfavorites>
         </PrivateRoute>),
-        loader: ({ params }) => fetch(`http://localhost:3000/Artify/${params.id}`)
+        loader: ({ params }) => fetch(`https://artify-six-nu.vercel.app/Artify/${params.id}`)
       },
       {
         path: "/auth",

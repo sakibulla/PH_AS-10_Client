@@ -8,7 +8,6 @@
 }
 @custom-varient dark (&:where([data-theme=dark],[data-theme=dark] *));
 
-/* Make ALL text white when dark theme is active */
 [data-theme="dark"] {
   color: white !important;
 }

@@ -4,7 +4,6 @@ import Model from "../Model/Model";
 import { CiSearch } from "react-icons/ci";
 import { Typewriter } from "react-simple-typewriter";
 
-// Swiper Imports
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -21,7 +20,6 @@ const Arts = () => {
 
   const categories = ["All", ...Array.from(new Set(data.map((art) => art.category)))];
 
-  // Filter logic (search + category)
   useEffect(() => {
     setLoading(true);
     const delay = setTimeout(() => {
@@ -44,12 +42,10 @@ const Arts = () => {
     return () => clearTimeout(delay);
   }, [search, category, data]);
 
-  // Take top 5 for slider
   const featuredArts = data.slice(0, 5);
 
   return (
     <div className="px-4 md:px-8 lg:px-16 py-8  min-h-screen">
-      {/* Header */}
       <div className="text-center md:text-left mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
           <Typewriter
@@ -65,7 +61,6 @@ const Arts = () => {
         <p className="text-gray-600 mt-1 text-lg">Discover amazing artworks</p>
       </div>
 
-      {/* Swiper Cards Slider */}
       {featuredArts.length > 0 && (
         <div className="max-w-sm mx-auto mb-10">
           <Swiper
@@ -86,9 +81,7 @@ const Arts = () => {
         </div>
       )}
 
-{/* Search & Category Filter */}
 <div className="flex flex-col md:flex-row justify-end gap-4 mb-8 w-full md:w-1/2 ml-auto">
-  {/* Search Bar */}
   <div className="flex items-center border border-gray-300 px-4 py-2 rounded-lg shadow-sm flex-1 focus-within:ring-2 focus-within:ring-indigo-400">
     <CiSearch className="text-gray-400 text-xl mr-2" />
     <input
@@ -100,7 +93,6 @@ const Arts = () => {
     />
   </div>
 
-  {/* Category Filter */}
   <select
     value={category}
     onChange={(e) => setCategory(e.target.value)}
@@ -115,7 +107,6 @@ const Arts = () => {
 </div>
 
 
-      {/* Arts Grid */}
       {loading ? (
         <div className="text-center py-10 text-gray-500 font-semibold">Searching...</div>
       ) : (

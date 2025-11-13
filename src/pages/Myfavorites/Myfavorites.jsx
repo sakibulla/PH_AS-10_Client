@@ -10,7 +10,7 @@ const MyFavorites = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/Myfavorites?email=${user.email}`)
+        fetch(`https://artify-six-nu.vercel.app/Myfavorites?email=${user.email}`)
             .then(res => res.json())
             .then(data => { setModels(data); setLoading(false); })
             .catch(err => { console.error(err); setLoading(false); });
@@ -18,7 +18,7 @@ const MyFavorites = () => {
 
     const handleRemove = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3000/favorites/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://artify-six-nu.vercel.app/favorites/${id}`, { method: "DELETE" });
             if (res.ok) {
                 setModels(models.filter(m => m._id !== id));
                 toast.success("Removed from Favorites");

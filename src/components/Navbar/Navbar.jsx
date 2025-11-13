@@ -26,9 +26,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-sm px-4 md:px-8">
-      {/* Left Section */}
       <div className="navbar-start">
-        {/* Mobile Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -68,7 +66,6 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Brand / Logo */}
         <NavLink
           to="/"
           className="flex items-center gap-2 text-xl font-semibold btn btn-ghost normal-case"
@@ -82,7 +79,6 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      {/* Center Section (Desktop Links) */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-6">
           <li>
@@ -138,9 +134,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Right Section */}
       <div className="navbar-end flex items-center gap-3">
-        {/* Dark Mode Toggle */}
         <input
           onChange={(e) => handleTheme(e.target.checked)}
           type="checkbox"

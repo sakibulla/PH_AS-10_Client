@@ -7,13 +7,12 @@ const MyModels = () => {
   const { user } = useContext(AuthContext);
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editingModel, setEditingModel] = useState(null); // For update modal
+  const [editingModel, setEditingModel] = useState(null); 
 
-  // Fetch user-specific artworks
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/MyModels?email=${user.email}`)
+    fetch(`https://artify-six-nu.vercel.app/MyModels?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setModels(data);
@@ -26,13 +25,12 @@ const MyModels = () => {
       });
   }, [user]);
 
-  // Handle Delete
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this artwork?");
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/Artify/${id}`, { method: "DELETE" });
+      const res = await fetch(`https://artify-six-nu.vercel.app/Artify/${id}`, { method: "DELETE" });
       const data = await res.json();
 
       if (data.deletedCount > 0) {
@@ -47,7 +45,6 @@ const MyModels = () => {
     }
   };
 
-  // Handle Update
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -62,7 +59,7 @@ const MyModels = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/Artify/${editingModel._id}`, {
+      const res = await fetch(`https://artify-six-nu.vercel.app/Artify/${editingModel._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedModel),
@@ -127,7 +124,6 @@ const MyModels = () => {
         </div>
       )}
 
-      {/* Update Modal */}
       {editingModel && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
           <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
