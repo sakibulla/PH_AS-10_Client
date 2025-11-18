@@ -36,8 +36,7 @@ Artify is a platform for artists to showcase their artwork, explore others’ cr
 
 ## Installation & Running Locally
 
-1. Clone the repository:
-   ```bash
+Clone the repository:
 cd PH_AS-10_Client
 npm install
 
