@@ -1,13 +1,55 @@
+# Artify 🎨
 
-Artify
+Artify is a platform for artists to showcase their artwork, explore others’ creations, and interact through likes and favorites.
 
-https://super-pudding-d204a9.netlify.app/
+[Live Demo](https://super-pudding-d204a9.netlify.app/)
+
+---
+
+## Features
+
+- Artists can add their artwork and view their collection.
+- Anyone can browse artworks from other artists.
+- Users can like artwork and add them to their favorites.
+- Artists can update artwork information if needed.
+- Artists can remove their artwork from the platform.
+
+---
+
+## Tech Stack
+
+- Frontend: React.js, HTML, CSS
+- Backend: Firebase, MongoDB
+
+---
+
+## Dependencies
+
+- React
+- Firebase
+- Axios (if used)
+- React Router
+- Any other dependencies from `package.json`
 
 
-Features:
+---
 
-1. Artists Can add their artwork here and see.
-2. Anyone can see other artists artworks.
-3. After log in I can like the art and add to my favorite to see them in another window.
-4. Artist can remove their artwork.
-5. Artist can update artwork info if they mistake  something  while adding.
+## Installation & Running Locally
+
+1. Clone the repository:
+   ```bash
+cd PH_AS-10_Client
+npm install
+
+npm run dev
+
+Open http://localhost:3000
+ to view in your browser.
+ 
+---
+
+I can also **create a visually appealing GitHub README** with banners, badges, and a screenshot layout so it looks professional for your profile.  
+
+Do you want me to do that next?
+
+
